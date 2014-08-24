@@ -78,9 +78,9 @@
 	    var id = banners[i].id;
 	    if ("{{webroot}}" === "0")
 	    {
-	        banners[i].src = 'http://' + host + ':' + port + '/MediaCover/' + id + '/banner.jpg';
+	        banners[i].src = "{{ http }}" + host + ':' + port + '/MediaCover/' + id + '/banner.jpg';
 	    }else{
-            banners[i].src = 'http://' + host + '/' + port + '/MediaCover/' + id + '/banner.jpg';
+            banners[i].src = "{{http}}" + host + '/' + port + '/MediaCover/' + id + '/banner.jpg';
 	    }
 	}
 
@@ -99,9 +99,9 @@
 	for (var i = banners.length - 1; i >= 0; i--) {
 	    var id = banners[i].id;
 	    if ("{{webroot}}" === "0") {
-	        banners[i].src = 'http://' + host + ':' + port + '/MediaCover/' + id + '/banner.jpg';
+	        banners[i].src = "{{http}}" + host + ':' + port + '/MediaCover/' + id + '/banner.jpg';
 	    } else {
-	        banners[i].src = 'http://' + host + '/' + port + '/MediaCover/' + id + '/banner.jpg';
+	        banners[i].src = "{{http}}" + host + '/' + port + '/MediaCover/' + id + '/banner.jpg';
 	    }
 	}
 	for (var i = airs.length - 1; i >= 0; i--) {
@@ -118,14 +118,14 @@
 	{				
 	    var url = images[i].id;
 	    if ("{{webroot}}" === "0") {
-	        images[i].href = 'http://' + host + ':' + port + '/series/' + url;
+	        images[i].href = "{{http}}" + host + ':' + port + '/series/' + url;
 	    } else {
-	        images[i].href = 'http://' + host + '/' + port + '/series/' + url;
+	        images[i].href = "{{http}}" + host + '/' + port + '/series/' + url;
 	    }
 	}
 	if ("{{webroot}}" === "0") {
-	    document.getElementById("nzbdrone_url").href = 'http://' + host + ':' + port;
+	    document.getElementById("nzbdrone_url").href = "{{http}}" + host + ':' + port;
 	} else {
-	    document.getElementById("nzbdrone_url").href = 'http://' + host + '/' + port;
+	    document.getElementById("nzbdrone_url").href = "{{http}}" + host + '/' + port;
 	}
 </script>

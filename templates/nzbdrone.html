@@ -38,11 +38,11 @@
 						
 							var url = images[i].id;
 							images[i].href = 'http://' + host + ':' + port + '/series/' + url;
-							}
+						}
 						for (var i = banners.length -1; i >= 0; i--)
 						{
 							var id = banners[i].id;
-							banners[i].src = 'http://' + host + ':' + port + '/MediaCover/' + id + '/banner.jpg';
+							banners[i].src = "{{ http }}" + host + ':' + port + '/MediaCover/' + id + '/banner.jpg';
 						}
 					</script>
 			{% endfor %}
@@ -60,5 +60,5 @@
 <script>
     var port = "{{port}}";
     var host = window.location.hostname;
-    document.getElementById("nzbdrone_url").href = 'http://' + host + ':' + port;
+    document.getElementById("nzbdrone_url").href = "{{ http }}" + host + ':' + port;
 </script>

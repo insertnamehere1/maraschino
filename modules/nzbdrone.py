@@ -108,6 +108,7 @@ def xhr_nzbdrone_getshows():
         external_server = get_setting_value('nzbdrone_external_server'),
         port = nzbdrone_port(),
         url = get_setting_value('nzbdrone_ip'),
+        http = nzbdrone_http(),
         images = images
         
     ) #renders the result to maraschino
@@ -196,6 +197,7 @@ def nzbdrone_search(message=None, params = None):
         titles = series_list,
         profiles = profiles,
         folders = folders,
+        http = nzbdrone_http(),
         url = get_setting_value('nzbdrone_ip'),
         port = nzbdrone_port(),
         external_server = get_setting_value('nzbdrone_external_server'),
@@ -302,6 +304,7 @@ def get_history():
 
     return render_template('nzbdrone/history.html',
         webroot = str(nzbdrone_webroot_status()),
+        http = nzbdrone_http(),
         url = get_setting_value('nzbdrone_ip'),
         port = nzbdrone_port(),
         properties = properties,
@@ -354,6 +357,7 @@ def calendar():
     return render_template('nzbdrone/calendar.html',
         webroot = str(nzbdrone_webroot_status()),
         url = get_setting_value('nzbdrone_ip'),
+        http = nzbdrone_http(),
         external_server = get_setting_value('nzbdrone_external_server'),
         port = nzbdrone_port(),
         missed = missed,
