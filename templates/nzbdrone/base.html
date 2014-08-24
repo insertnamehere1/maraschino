@@ -106,10 +106,12 @@
 	}
 	for (var i = airs.length - 1; i >= 0; i--) {
 	    var id = airs[i].id;
-	    var date = new Date(id)
-	    day = weekday[date.getDay()]
-	    hour = date.getHours()
-	    min = date.getMinutes()
+	    var date = new Date(id);
+	    day = weekday[date.getDay()];
+	    hour = date.getHours();
+	    min = date.getMinutes();
+		if (hour < 10) {hour = "0" + hour};
+		if (min < 10) {min = "0" + min};
 	    airs[i].innerHTML = day + " " + hour + ":" + min
 	}
 // Library(All) Javascript
