@@ -118,14 +118,12 @@ def xhr_nzbdrone_getshows():
 def nzbdrone_search(message=None, params = None):
     nzbdrone = {}
     
-    logger.log('NZBDrone :: params is %s' % (params), 'DEBUG')
     try:
         query = request.args['name']
         params = '/api/Series/lookup/?term=' + query
     except:
         pass
         
-    logger.log('NZBDrone :: params is %s' % (params), 'DEBUG')
     try:
         nzbdrone = nzbdrone_api(params=params)
         amount = len(nzbdrone.json())
