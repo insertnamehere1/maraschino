@@ -353,7 +353,7 @@ AVAILABLE_MODULES = [
     },
     {
         'name': 'nzbdrone',
-        'label': 'NZBDrone',
+        'label': 'Manager - NZBDrone',
         'description': 'Adds NZBDrone Functionality.',
         'static': False,
         'poll': 0,
