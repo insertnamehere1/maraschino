@@ -66,17 +66,23 @@ def get_episode_overview(params = None):
     params = '/api/episode/' + str(params)
     episodeoverview = nzbdrone_api(params=params)
     return episodeoverview['overview']
-    
-#searches for a given episode    
-def search_episode(params = None):
+
+def run_command(data = None):
     url = '/api/command/'
     api = get_setting_value('nzbdrone_api')
     url = nzbdrone_url() + url
     header = {'X-Api-Key': api}
-    ids = params
-    data=json.dumps({'name':'episodesearch', 'episodeIds':[ids]})
     r = urllib2.Request(url, data, header)
     if str(urllib2.urlopen(r).read()):
+        return True
+    else:
+        return False
+    
+#searches for a given episode    
+def search_episode(params = None):
+    ids = params
+    data=json.dumps({'name':'episodesearch', 'episodeIds':[ids]})
+    if run_command(data=data) == True:
         return True
     else:
         return False
@@ -369,3 +375,12 @@ def calendar():
         tomorrow = tomorrow,
         later = later
     )
+
+#Search for entire series
+@app.route('/xhr/nzbdrone/search_for_series/<seriesid>/')
+def Series_search(seriesid):
+    data=json.dumps({'name':'seriessearch', 'seriesId':seriesid})
+    if run_command(data=data) == True:
+        return jsonify({'success': True})
+    else:
+        return jsonify({'success': False})

@@ -17,10 +17,10 @@
 
   </div>
 <div id="series" class="noscroll">
-    <div id="shows" "class="Series">
+    <div id="shows" class="Series">
 		{% if images %}
 				{% for key, value in images.iteritems() %}
-					<h2><a href="http://thetvdb.com/?tab=series&id={{value[2]}}" target="_blank" title="{{ key }} on TVDB">{{key}}</a></h2>
+					<h2><a href="http://thetvdb.com/?tab=series&id={{value[2]}}" target="_blank" title="{{ key }} on TVDB">{{key}}</a><img class="search" src="{{ url_for('static', filename='images/search.png') }}" id="{{value[0]}}" title="Search for all episodes in series"/></h2>
 					<a class="image_links" href=# id={{value[1]}} ><img  class="banners" src="#" id={{value[0]}} title="{{key}}" /></a>
 					<script>
             

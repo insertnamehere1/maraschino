@@ -930,6 +930,23 @@ $(document).ready(function() {
   $(document).on('click', '#nzbdrone #missed', function(){
     $('#nzbdrone .missed').toggle();
   });
+
+
+    //Search for all episodes in series
+  $(document).on('click', '#nzbdrone .noscroll .Series img.search', function () {
+      $(this).attr('src', WEBROOT + '/static/images/xhrloading.gif');
+      var id = $(this).attr('id');
+      $.get('/xhr/nzbdrone/search_for_series/' + id + '/')
+      .success(function (data) {
+          if (data.success) {
+              popup_message('Searching for all Episodes in Series');
+              $('#nzbdrone .noscroll .Series img.search').attr('src', WEBROOT + '/static/images/search.png');
+          } else {
+              popup_message('Unable to search NZBDrone');
+              $('#nzbdrone .noscroll .Series img.search').attr('src', WEBROOT + '/static/images/search.png');
+          }
+      });
+  });
   
   /***** End NZBDrone ****/
 
