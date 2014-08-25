@@ -1,4 +1,5 @@
 from flask import jsonify, render_template, request, send_file
+import urllib
 import urllib2
 import base64
 import StringIO
@@ -8,7 +9,6 @@ import datetime
 from maraschino import app
 from maraschino.tools import *
 import maraschino
-import requests
 
 #getting http/s setting from Maraschino
 def nzbdrone_http():
@@ -52,8 +52,10 @@ def nzbdrone_webroot_status():
 def nzbdrone_api(params = None):
     api = get_setting_value('nzbdrone_api')
     url = nzbdrone_url() + params
-    headers = {'X-Api-Key': api}
-    return requests.get(url, headers=headers)
+    r = urllib2.Request(url)
+    r.add_header("X-Api-Key", api)
+    r = urllib2.urlopen(r).read()
+    return json.JSONDecoder().decode(r)
 
 #exception logging    
 def log_exception(e):
@@ -62,7 +64,7 @@ def log_exception(e):
 #Gets the episode overview
 def get_episode_overview(params = None):
     params = '/api/episode/' + str(params)
-    episodeoverview = nzbdrone_api(params=params).json()
+    episodeoverview = nzbdrone_api(params=params)
     return episodeoverview['overview']
     
 #searches for a given episode    
@@ -70,9 +72,11 @@ def search_episode(params = None):
     url = '/api/command/'
     api = get_setting_value('nzbdrone_api')
     url = nzbdrone_url() + url
-    headers = {'X-Api-Key': api}
-    ids = str(params)
-    if str(requests.post(url, headers=headers, data=json.dumps({'name':'episodesearch', 'episodeIds':[ids]}))) == '<Response [201]>':
+    header = {'X-Api-Key': api}
+    ids = params
+    data=json.dumps({'name':'episodesearch', 'episodeIds':[ids]})
+    r = urllib2.Request(url, data, header)
+    if str(urllib2.urlopen(r).read()):
         return True
     else:
         return False
@@ -92,7 +96,7 @@ def search_episodes(id):
 @app.route('/xhr/nzbdrone/')
 def xhr_nzbdrone_getshows():
     url = nzbdrone_api(params='/api/series')
-    json_string = url.json()   #opens previous json
+    json_string = url   #opens previous json
     series = {}            #creates a list
     var1 = 0            #sets var1 up to be incremented
     for increment in json_string:   #just here to drop us down a level in the json
@@ -127,8 +131,8 @@ def nzbdrone_search(message=None, params = None):
         
     try:
         nzbdrone = nzbdrone_api(params=params)
-        amount = len(nzbdrone.json())
-        nzbdrone = nzbdrone.json()
+        amount = len(nzbdrone)
+        nzbdrone = nzbdrone
         logger.log('NZBDrone :: found %i series matching %s' % (amount, query), 'INFO')
         if amount != 0:
             try:
@@ -160,7 +164,7 @@ def nzbdrone_search(message=None, params = None):
                 profile_list = nzbdrone_api(params=params)
                 var = 0
                 profiles = {}
-                profile_list = profile_list.json()
+                profile_list = profile_list
                 for incrementing in profile_list:
                     try:
                         profiles.update({profile_list[var]['id']:profile_list[var]['name']})
@@ -171,7 +175,7 @@ def nzbdrone_search(message=None, params = None):
                 params = '/api/Rootfolder'
                 folders = {}
                 folder_list = nzbdrone_api(params=params)
-                folder_list = folder_list.json()
+                folder_list = folder_list
                 var = 0
                 for incrementing in folder_list:
                     try:
@@ -209,7 +213,7 @@ def nzbdrone_search(message=None, params = None):
 def add_series(tvdbid, title, qualityprofile, seriestype, path, titleslug):
     params = '/api/Series/lookup/?term=tvdbid:'+tvdbid
     season = nzbdrone_api(params=params)
-    season = season.json()[0]['seasons']
+    season = season[0]['seasons']
     
     try:
         logger.log('NZBDrone :: Adding %s to library' % (title), 'INFO')
@@ -240,7 +244,7 @@ def add_series(tvdbid, title, qualityprofile, seriestype, path, titleslug):
         payload = {"title": title, "seasons": seasons, "rootFolderPath": path, "seasonFolder": seasonFolder, "monitored": monitored, "tvdbId": tvdbId, "seriestype": seriestype, "titleSlug": titleslug, "qualityProfileId": qualityprofile}
         params = '/api/Series/'
         titletemp = payload['titleSlug']
-        nzbdrone = nzbdrone_api(params=params).json()
+        nzbdrone = nzbdrone_api(params=params)
         title = []
         var = 0
         for increment in nzbdrone:
@@ -257,7 +261,8 @@ def add_series(tvdbid, title, qualityprofile, seriestype, path, titleslug):
         url = nzbdrone_url() + '/api/Series/'     
         headers = {'X-Api-Key': api}
         payload = json.dumps(payload)
-        result = requests.post(url, headers=headers, data=payload)
+        result = urllib2.Request(url, headers=headers, data=payload)
+        urllib2.urlopen(result).read()
         return jsonify({'success': True})
     except Exception as e:
         log_exception(e)
@@ -271,7 +276,7 @@ def add_series(tvdbid, title, qualityprofile, seriestype, path, titleslug):
 def get_history():
     params = '/api/history?pageSize=25&page=1&sortKey=date&sortDir=desc'
     history = nzbdrone_api(params=params)
-    history = history.json()
+    history = history
     properties = []
     for overview in history['records']:
         try:
@@ -320,7 +325,6 @@ def calendar():
     end_date = (datetime.datetime.strptime(current_date, '%Y-%m-%d') + datetime.timedelta(days=7)).strftime('%Y-%m-%d')
     params = '/api/calendar?start=' + start_date + '&end=' + end_date
     calendar = nzbdrone_api(params=params)
-    calendar = calendar.json()
     missed = {}
     today = {}
     tomorrow = {}
