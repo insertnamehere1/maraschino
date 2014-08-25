@@ -131,7 +131,8 @@ def nzbdrone_search(message=None, params = None):
     
     try:
         query = request.args['name']
-        params = '/api/Series/lookup/?term=' + query
+        params = '/api/Series/lookup/?term=' + urllib.quote(query)
+        print params
     except:
         pass
         
