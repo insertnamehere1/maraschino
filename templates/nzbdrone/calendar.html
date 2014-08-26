@@ -16,32 +16,32 @@
     <div id="missed" title="NZBDrone has missed {{ missed|length }} episodes">{{ missed|length }}</div>
     <div class="missed">
 	  <h3>Missed</h3>
-      {% for key, value in missed.iteritems() %}
-      {{item(value)}}
+      {% for episode in missedlist %}
+      {{item(missed[episode])}}
       {% endfor %}
     </div>
     {% endif %}
     {% if today|length %}
     <div id="today">
       <h3>Today</h3>
-      {% for key, value in today.iteritems() %}
-      {{item(value)}}
+      {% for episode in todaylist %}
+      {{item(today[episode])}}
       {% endfor %}
     </div>
     {% endif %}
     {% if tomorrow|length %}
     <div id="tomorrow">
       <h3>Tomorrow</h3>
-      {% for key, value in tomorrow.iteritems() %}
-      {{item(value)}}
+      {% for episode in tomorrowlist %}
+      {{item(tomorrow[episode])}}
       {% endfor %}
     </div>
     {% endif %}
     {% if later|length %}
     <div id="later">
       <h3>Later</h3>
-      {% for key, value in later.iteritems() %}
-      {{item(value)}}
+      {% for episode in laterlist %}
+      {{item(later[episode])}}
       {% endfor %}
     </div>
     {% endif %}

@@ -113,13 +113,15 @@ def xhr_nzbdrone_getshows():
             break               #breaks the loop when it hits an error
     
     images = series
+    imagelist = sorted(series, key=lambda s: s.lower())
     return render_template('nzbdrone.html',
         webroot = str(nzbdrone_webroot_status()),
         external_server = get_setting_value('nzbdrone_external_server'),
         port = nzbdrone_port(),
         url = get_setting_value('nzbdrone_ip'),
         http = nzbdrone_http(),
-        images = images
+        images = images,
+        imagelist = imagelist
         
     ) #renders the result to maraschino
 
@@ -365,7 +367,18 @@ def calendar():
                 tomorrow.update({banner:[episodetitle, airdatestr, season, episode, overview, title, banner, episodeid, episodetvdbid]})
             elif airdate.date() > (datetime.datetime.utcnow().date() + datetime.timedelta(days=1)):
                 later.update({banner:[episodetitle, airdatestr, season, episode, overview, title, banner, episodeid, episodetvdbid]})
+
+    tomorrowlist = sorted(tomorrow, key = lambda k: (datetime.datetime.strptime(tomorrow[k][1], "%m/%d/%Y %H:%M:%S UTC")) )
+    todaylist = sorted(today, key = lambda k: (datetime.datetime.strptime(today[k][1], "%m/%d/%Y %H:%M:%S UTC")) )
+    laterlist = sorted(later, key = lambda k: (datetime.datetime.strptime(later[k][1], "%m/%d/%Y %H:%M:%S UTC")) )
+    missedlist = sorted(missed, key = lambda k: (datetime.datetime.strptime(missed[k][1], "%m/%d/%Y %H:%M:%S UTC")) )
+    
+
     return render_template('nzbdrone/calendar.html',
+        missedlist = missedlist,
+        todaylist = todaylist,
+        tomorrowlist = tomorrowlist,
+        laterlist = laterlist,
         webroot = str(nzbdrone_webroot_status()),
         url = get_setting_value('nzbdrone_ip'),
         http = nzbdrone_http(),
