@@ -115,6 +115,7 @@ def xhr_nzbdrone_getshows():
     images = series
     imagelist = sorted(series, key=lambda s: s.lower())
     return render_template('nzbdrone.html',
+        lan = get_setting_value('nzbdrone_lan'),
         webroot = str(nzbdrone_webroot_status()),
         external_server = get_setting_value('nzbdrone_external_server'),
         port = nzbdrone_port(),
@@ -214,6 +215,7 @@ def nzbdrone_search(message=None, params = None):
         url = get_setting_value('nzbdrone_ip'),
         port = nzbdrone_port(),
         external_server = get_setting_value('nzbdrone_external_server'),
+        lan = get_setting_value('nzbdrone_lan'),
         error = message
     )
 
@@ -285,7 +287,6 @@ def add_series(tvdbid, title, qualityprofile, seriestype, path, titleslug):
 def get_history():
     params = '/api/history?pageSize=25&page=1&sortKey=date&sortDir=desc'
     history = nzbdrone_api(params=params)
-    history = history
     properties = []
     for overview in history['records']:
         try:
@@ -318,6 +319,7 @@ def get_history():
 
     return render_template('nzbdrone/history.html',
         webroot = str(nzbdrone_webroot_status()),
+        lan = get_setting_value('nzbdrone_lan'),
         http = nzbdrone_http(),
         url = get_setting_value('nzbdrone_ip'),
         port = nzbdrone_port(),
@@ -380,6 +382,7 @@ def calendar():
         tomorrowlist = tomorrowlist,
         laterlist = laterlist,
         webroot = str(nzbdrone_webroot_status()),
+        lan = get_setting_value('nzbdrone_lan'),
         url = get_setting_value('nzbdrone_ip'),
         http = nzbdrone_http(),
         external_server = get_setting_value('nzbdrone_external_server'),

@@ -27,10 +27,11 @@
 						var port = "{{port}}";
 						var banners = document.getElementsByClassName("banners");
 						if ("{{ external_server }}" === "0") {
-							var host = window.location.hostname;
-						}
-						else{
-							var host = "{{ url }}"
+						    var host = window.location.hostname;
+						}else if ("{{lan}}" === 1) {
+						    var host = "{{ url }}";
+						} else {
+						    var host = window.location.hostname;
 						}
 						var images = document.getElementsByClassName("image_links");
 						for (var i = images.length -1; i >= 0; i--)
@@ -59,6 +60,16 @@
 
 <script>
     var port = "{{port}}";
-    var host = window.location.hostname;
-    document.getElementById("nzbdrone_url").href = "{{ http }}" + host + ':' + port;
+    if ("{{ external_server }}" === "0") {
+        var host = window.location.hostname;
+    } else if ("{{lan}}" === 1) {
+        var host = "{{ url }}";
+    } else {
+        var host = window.location.hostname;
+    }
+    if ("{{webroot}}" === "0") {
+        document.getElementById("nzbdrone_url").href = "{{http}}" + host + ':' + port;
+    } else {
+        document.getElementById("nzbdrone_url").href = "{{http}}" + host + '/' + port;
+    }
 </script>

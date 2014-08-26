@@ -391,6 +391,12 @@ AVAILABLE_MODULES = [
 				'description': 'Is NZBDrone is located on a different machine than Maraschino?',
 				'type': 'bool',
 			},
+            {
+                'key': 'nzbdrone_lan',
+                'value': '0',
+                'description': 'Is NZBDrone on a different LAN than Maraschino?',
+                'type': 'bool',
+            },
         ]
     },
     {
