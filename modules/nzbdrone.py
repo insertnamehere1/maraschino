@@ -27,7 +27,7 @@ def nzbdrone_url(params = None):
         url_base = '%s:%s' % (url_base, port) 
     elif webroot:
         url_base = '%s/%s' % (url_base, webroot)
-    url = url_base 
+    url = url_base
     return nzbdrone_http() + url
 
 #returns just the port or webroot
@@ -61,11 +61,11 @@ def nzbdrone_api(params = None):
 def log_exception(e):
     logger.log('NZBDrone :: EXCEPTION -- %s' % e, 'DEBUG') 
 
-#Gets the episode overview
+''' #Gets the episode overview: Currently unused
 def get_episode_overview(params = None):
     params = '/api/episode/' + str(params)
     episodeoverview = nzbdrone_api(params=params)
-    return episodeoverview['overview']
+    return episodeoverview['overview'] '''
 
 def run_command(data = None):
     url = '/api/command/'
@@ -350,7 +350,7 @@ def calendar():
         episode = increment['episodeNumber']
         episodeid = increment['id']
         episodetvdbid = increment['series']['tvdbId']
-        episodeoverview = get_episode_overview(episodeid)
+        episodeoverview = increment['overview']
         if episodeoverview != '':
             overview = episodeoverview
         else:
