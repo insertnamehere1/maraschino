@@ -26,27 +26,28 @@
           {% endif %}
 		  <br>
           <div class="choices">
+			<div class="{{increment[1]}}">
               {% if profiles %}
-                <select class="profiles">
-                  {% for key, value in profiles.iteritems() %}
-                    <option value="{{ key }}">{{ value }}</option>
-                  {% endfor %}
-                </select>
+					<select class="profiles">
+					{% for key, value in profiles.iteritems() %}
+						<option value="{{ key }}">{{ value }}</option>
+					{% endfor %}
+					</select>
               {% endif %}
 			  {% if folders %}
-				<select class="path">
-				{% for key, value in folders.iteritems() %}
-					<option value="{{ key }}">{{ key }}      |  Free Space: {{value}} GB</option>
-				{% endfor %}
-				</select>
+					<select class="path">
+					{% for key, value in folders.iteritems() %}
+						<option value="{{ key }}">{{ key }}      |  Free Space: {{value}} GB</option>
+					{% endfor %}
+					</select>
 			  {% endif %}
-			  <select class="seriestypes">
-				<option value="standard">Standard TV</option>
-				<option value="anime">Anime</option>
-				<option value="daily">Daily shows(e.g news shows)</option>
-			  </select>
+				<select class="seriestypes">
+					<option value="standard">Standard TV</option>
+					<option value="anime">Anime</option>
+					<option value="daily">Daily shows(e.g news shows)</option>
+				</select>
+			</div>
               <span class="add">Add</span>
-          </div>
         </li>
 		</div>
       {% endfor %}

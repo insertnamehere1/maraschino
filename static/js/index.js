@@ -885,11 +885,11 @@ $(document).ready(function() {
   $(document).on('click', '#nzbdrone .search li .choices .add', function() {
     var tvdbid = $(this).parent().parent().data('tvdbid');
     var title = $(this).parent().parent().data('title').replace('/','%20');
+    var qualityprofile = $('#nzbdrone .search ul li .' + tvdbid + ' .profiles').find(':selected').val();
 	var titleslug = $(this).parent().parent().data('titleslug');
-    var qualityprofile = $('#nzbdrone .search ul li .choices .profiles').find(':selected').val();
-	var seriestype = $('#nzbdrone .search ul li .choices .seriestypes').find(':selected').val();
+	var seriestype = $('#nzbdrone .search ul li .'+tvdbid+' .seriestypes').find(':selected').val();
 	var monitoredseasons = $('#nzbdrone .search ul li .choices .monitored').find(':selected').val();
-	var path = $('#nzbdrone .search ul li .choices .path').find(':selected').val();
+	var path = $('#nzbdrone .search ul li .' + tvdbid + ' .path').find(':selected').val();
 	$.get('/xhr/nzbdrone/add_show/'+tvdbid+'/'+encodeURIComponent(title)+'/'+qualityprofile+'/'+seriestype+'/'+encodeURIComponent(path)+'/'+titleslug+'/', function(data) {
       if(data.success){
         popup_message('Series added successfully');
