@@ -155,8 +155,15 @@ def nzbdrone_search(message=None, params = None):
                         series_tvdbid = nzbdrone[var]['tvdbId']
                         series_titleslug = nzbdrone[var]['titleSlug']
                         series_seasons = nzbdrone[var]['seasons']
-                        poster = nzbdrone[var]['remotePoster']
-                        overview = nzbdrone[var]['overview']
+                        try:
+                            poster = nzbdrone[var]['remotePoster']
+                        except:
+                            poster = nzbdrone_url() + '/Content/Images/poster-dark.png'
+                            print poster
+                        try:
+                            overview = nzbdrone[var]['overview']
+                        except:
+                            overview = ''
                         overview = (overview[:500] + '..') if len(overview) > 500 else overview
                         overview = (overview) if len(overview) != 0 else 'No description available for this show.'
                         titles.append(series_title)
@@ -350,7 +357,10 @@ def calendar():
         episode = increment['episodeNumber']
         episodeid = increment['id']
         episodetvdbid = increment['series']['tvdbId']
-        episodeoverview = increment['overview']
+        try:
+            episodeoverview = increment['overview']
+        except KeyError:
+            episodeoverview = ''
         if episodeoverview != '':
             overview = episodeoverview
         else:
