@@ -189,6 +189,54 @@ AVAILABLE_MODULES = [
         ]
     },
     {
+        'name': 'sonarr',
+        'label': 'Manager - Sonarr',
+        'description': 'Adds Sonarr Functionality.',
+        'static': False,
+        'poll': 0,
+        'delay': 0,
+        'settings': [
+            {
+                'key': 'sonarr_ip',
+                'value': '',
+                'description': 'IP or Address',
+            },
+            {
+                'key': 'sonarr_port',
+                'value': '',
+                'description': 'Port',
+            },
+            {
+                'key': 'sonarr_webroot',
+                'value': '',
+                'description': 'Webroot',
+            },
+            {
+                'key': 'sonarr_api',
+                'value': '',
+                'description': 'API key',
+            },
+            {
+                'key': 'sonarr_https',
+                'value': '0',
+                'description': 'Use HTTPS',
+                'type': 'bool',
+            },
+			{
+				'key': 'sonarr_external_server',
+				'value': '0',
+				'description': 'Is Sonarr is located on a different machine than Maraschino?',
+				'type': 'bool',
+			},
+            {
+                'key': 'sonarr_lan',
+                'value': '0',
+                'description': 'Is Sonarr on a different LAN than Maraschino?',
+                'type': 'bool',
+            },
+        ]
+    },
+    {
         'name': 'library',
         'label': 'XBMC - Library',
         'description': 'Allows you to browse your XBMC library and select items to play in XBMC.',
@@ -348,54 +396,6 @@ AVAILABLE_MODULES = [
                 'type': 'select',
                 'options': None,
                 'xbmc_servers': True
-            },
-        ]
-    },
-    {
-        'name': 'sonarr',
-        'label': 'Manager - Sonarr',
-        'description': 'Adds Sonarr Functionality.',
-        'static': False,
-        'poll': 0,
-        'delay': 0,
-        'settings': [
-            {
-                'key': 'sonarr_ip',
-                'value': '',
-                'description': 'IP or Address',
-            },
-            {
-                'key': 'sonarr_port',
-                'value': '',
-                'description': 'Port',
-            },
-            {
-                'key': 'sonarr_webroot',
-                'value': '',
-                'description': 'Webroot',
-            },
-            {
-                'key': 'sonarr_api',
-                'value': '',
-                'description': 'API key',
-            },
-            {
-                'key': 'sonarr_https',
-                'value': '0',
-                'description': 'Use HTTPS',
-                'type': 'bool',
-            },
-			{
-				'key': 'sonarr_external_server',
-				'value': '0',
-				'description': 'Is Sonarr is located on a different machine than Maraschino?',
-				'type': 'bool',
-			},
-            {
-                'key': 'sonarr_lan',
-                'value': '0',
-                'description': 'Is Sonarr on a different LAN than Maraschino?',
-                'type': 'bool',
             },
         ]
     },
