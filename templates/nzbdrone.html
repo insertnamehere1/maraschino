@@ -22,7 +22,7 @@
             {% for item in imagelist %}
 					<h2><a href="http://thetvdb.com/?tab=series&id={{images[item][2]}}" target="_blank" title="{{ item }} on TVDB">{{item}}</a><img class="search" src="{{ url_for('static', filename='images/search.png') }}" id="{{images[item][0]}}" title="Search for all episodes in series"/></h2>
 					<a class="image_links" href=# id={{images[item][1]}} ><img  class="banners" src="#" id={{images[item][0]}} title="{{item}}" /></a>
-					<script>
+                    <script>
             
 						var port = "{{port}}";
 						var banners = document.getElementsByClassName("banners");
@@ -31,7 +31,7 @@
 						}else if ("{{lan}}" === 1) {
 						    var host = "{{ url }}";
 						} else {
-						    var host = window.location.hostname;
+						    var host = "{{ url }}";
 						}
 						var images = document.getElementsByClassName("image_links");
 						for (var i = images.length -1; i >= 0; i--)
