@@ -352,49 +352,49 @@ AVAILABLE_MODULES = [
         ]
     },
     {
-        'name': 'nzbdrone',
-        'label': 'Manager - NZBDrone',
-        'description': 'Adds NZBDrone Functionality.',
+        'name': 'sonarr',
+        'label': 'Manager - Sonarr',
+        'description': 'Adds Sonarr Functionality.',
         'static': False,
         'poll': 0,
         'delay': 0,
         'settings': [
             {
-                'key': 'nzbdrone_ip',
+                'key': 'sonarr_ip',
                 'value': '',
                 'description': 'IP or Address',
             },
             {
-                'key': 'nzbdrone_port',
+                'key': 'sonarr_port',
                 'value': '',
                 'description': 'Port',
             },
             {
-                'key': 'nzbdrone_webroot',
+                'key': 'sonarr_webroot',
                 'value': '',
                 'description': 'Webroot',
             },
             {
-                'key': 'nzbdrone_api',
+                'key': 'sonarr_api',
                 'value': '',
                 'description': 'API key',
             },
             {
-                'key': 'nzbdrone_https',
+                'key': 'sonarr_https',
                 'value': '0',
                 'description': 'Use HTTPS',
                 'type': 'bool',
             },
 			{
-				'key': 'nzbdrone_external_server',
+				'key': 'sonarr_external_server',
 				'value': '0',
-				'description': 'Is NZBDrone is located on a different machine than Maraschino?',
+				'description': 'Is Sonarr is located on a different machine than Maraschino?',
 				'type': 'bool',
 			},
             {
-                'key': 'nzbdrone_lan',
+                'key': 'sonarr_lan',
                 'value': '0',
-                'description': 'Is NZBDrone on a different LAN than Maraschino?',
+                'description': 'Is Sonarr on a different LAN than Maraschino?',
                 'type': 'bool',
             },
         ]

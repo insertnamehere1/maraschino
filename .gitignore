@@ -13,6 +13,7 @@ static/images/backgrounds/custom
 cache
 Version.txt
 /scripts/
+.idea
 
 ######################
 #       Legacy       #

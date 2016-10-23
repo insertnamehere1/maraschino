@@ -1,6 +1,6 @@
-{% extends "nzbdrone/base.html" %}
+{% extends "sonarr/base.html" %}
 
-{% block nzbdrone_menu %}
+{% block sonarr_menu %}
 <ul class="menu">
   <li class="history" title="View History"><span>History</span></li>
   <li class="all" title="View all"><span>All</span></li>
@@ -8,7 +8,7 @@
 </ul>
 {% endblock %}
 
-{% block nzbdrone_content %}
+{% block sonarr_content %}
 <div class="search">
   <div id="result" class="noscroll">
     {% if error %}

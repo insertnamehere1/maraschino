@@ -829,29 +829,29 @@ $(document).ready(function() {
       }
     );
   });
-  /*** NZBDrone   ***/
+  /*** Sonarr   ***/
   
    // Loading wheel on menu click
-  $(document).on('click', '#nzbdrone .menu li', function() {
+  $(document).on('click', '#sonarr .menu li', function() {
     $(this).children().css('background', 'url('+WEBROOT+'/static/images/xhrloading.gif) no-repeat center').html('&nbsp;');
   });
   
-  $(document).on('click', '#nzbdrone .all', function() {
-    $.get('/xhr/nzbdrone/', function(data) {
-    $('#nzbdrone').replaceWith(data);
+  $(document).on('click', '#sonarr .all', function() {
+    $.get('/xhr/sonarr/', function(data) {
+    $('#sonarr').replaceWith(data);
     });
   }); 
   
-   $(document).on('keydown', '#nzbdrone .nzbsearch input', function(e) {
+   $(document).on('keydown', '#sonarr .nzbsearch input', function(e) {
     if(e.which == 13){
       var name = $(this).val();
       params = '';
       if(name !== ''){
           params = 'name='+encodeURIComponent(name);
       }
-      $.get('/xhr/nzbdrone/search?'+params)
+      $.get('/xhr/sonarr/search?'+params)
 	  .success(function(data){
-        $('#nzbdrone').replaceWith(data);
+        $('#sonarr').replaceWith(data);
       })
       .error(function(){
         popup_message('Could not reach Maraschino.');
@@ -860,95 +860,95 @@ $(document).ready(function() {
   });
   
       // Coming episodes Menu
-  $(document).on('click', '#nzbdrone .menu .upcoming', function(){
-    $.get(WEBROOT + '/xhr/nzbdrone/calendar', function(data){
-      $('#nzbdrone').replaceWith(data);
+  $(document).on('click', '#sonarr .menu .upcoming', function(){
+    $.get(WEBROOT + '/xhr/sonarr/calendar', function(data){
+      $('#sonarr').replaceWith(data);
     });
   });
   
     // Plot display function
-  $(document).on('mouseenter', '#nzbdrone .coming_ep .details .plot-title', function(){
+  $(document).on('mouseenter', '#sonarr .coming_ep .details .plot-title', function(){
     $(this).toggle();
     var id = $(this).closest('div.coming_ep').attr('id');
-    $('#nzbdrone #'+id+' .details .plot').toggle();
+    $('#sonarr #'+id+' .details .plot').toggle();
   });
   
     // Plot hide function
-  $(document).on('mouseleave', '#nzbdrone .coming_ep', function(){
+  $(document).on('mouseleave', '#sonarr .coming_ep', function(){
     var id = $(this).attr('id');
-    $('#nzbdrone #'+id+' .details .plot-title').show();
-    $('#nzbdrone #'+id+' .details .plot').hide();
+    $('#sonarr #'+id+' .details .plot-title').show();
+    $('#sonarr #'+id+' .details .plot').hide();
   });
   
   
-    // Add show to NZBDrone
-  $(document).on('click', '#nzbdrone .search li .choices .add', function() {
+    // Add show to Sonarr
+  $(document).on('click', '#sonarr .search li .choices .add', function() {
     var tvdbid = $(this).parent().parent().data('tvdbid');
     var title = $(this).parent().parent().data('title').replace('/','%20');
-    var qualityprofile = $('#nzbdrone .search ul li .' + tvdbid + ' .profiles').find(':selected').val();
+    var qualityprofile = $('#sonarr .search ul li .' + tvdbid + ' .profiles').find(':selected').val();
 	var titleslug = $(this).parent().parent().data('titleslug');
-	var seriestype = $('#nzbdrone .search ul li .'+tvdbid+' .seriestypes').find(':selected').val();
-	var monitoredseasons = $('#nzbdrone .search ul li .choices .monitored').find(':selected').val();
-	var path = $('#nzbdrone .search ul li .' + tvdbid + ' .path').find(':selected').val();
-	$.get('/xhr/nzbdrone/add_show/'+tvdbid+'/'+encodeURIComponent(title)+'/'+qualityprofile+'/'+seriestype+'/'+encodeURIComponent(path)+'/'+titleslug+'/', function(data) {
+	var seriestype = $('#sonarr .search ul li .'+tvdbid+' .seriestypes').find(':selected').val();
+	var monitoredseasons = $('#sonarr .search ul li .choices .monitored').find(':selected').val();
+	var path = $('#sonarr .search ul li .' + tvdbid + ' .path').find(':selected').val();
+	$.get('/xhr/sonarr/add_show/'+tvdbid+'/'+encodeURIComponent(title)+'/'+qualityprofile+'/'+seriestype+'/'+encodeURIComponent(path)+'/'+titleslug+'/', function(data) {
       if(data.success){
         popup_message('Series added successfully');
       } else if(data.duplicate){
 	  popup_message('Series already exists');
 	  } else {
-        popup_message('Failed to add series to NZBDrone');
+        popup_message('Failed to add series to Sonarr');
       }
     });
   });
   
   // Search Episode Functionality on Magnifying Glass png
-  $(document).on('click', '#nzbdrone .coming_ep div.options img.search', function(){
+  $(document).on('click', '#sonarr .coming_ep div.options img.search', function(){
     $(this).attr('src', WEBROOT + '/static/images/xhrloading.gif');
     var id = $(this).attr('id');
-    $.get('/xhr/nzbdrone/search_ep/'+id+'/')
+    $.get('/xhr/sonarr/search_ep/'+id+'/')
     .success(function(data){
       if(data.success){
         popup_message('Searching for episode');
-        $('#nzbdrone .coming_ep div.options img.search').attr('src', WEBROOT + '/static/images/search.png');
+        $('#sonarr .coming_ep div.options img.search').attr('src', WEBROOT + '/static/images/search.png');
       } else {
-	  popup_message('Unable to search NZBDrone');
-      $('#nzbdrone .coming_ep div.options img.search').attr('src', WEBROOT + '/static/images/search.png');
+	  popup_message('Unable to search Sonarr');
+      $('#sonarr .coming_ep div.options img.search').attr('src', WEBROOT + '/static/images/search.png');
     }
     });
   });
   
   
   // menu 'history' click
-  $(document).on('click', '#nzbdrone .menu .history', function(){
-    $.get(WEBROOT + '/xhr/nzbdrone/get_history/')
+  $(document).on('click', '#sonarr .menu .history', function(){
+    $.get(WEBROOT + '/xhr/sonarr/get_history/')
     .success(function(data){
-      $('#nzbdrone').replaceWith(data);
+      $('#sonarr').replaceWith(data);
     });
   });
   
     // Toggle missed episodes
-  $(document).on('click', '#nzbdrone #missed', function(){
-    $('#nzbdrone .missed').toggle();
+  $(document).on('click', '#sonarr #missed', function(){
+    $('#sonarr .missed').toggle();
   });
 
 
     //Search for all episodes in series
-  $(document).on('click', '#nzbdrone .noscroll .Series img.search', function () {
+  $(document).on('click', '#sonarr .noscroll .Series img.search', function () {
       $(this).attr('src', WEBROOT + '/static/images/xhrloading.gif');
       var id = $(this).attr('id');
-      $.get('/xhr/nzbdrone/search_for_series/' + id + '/')
+      $.get('/xhr/sonarr/search_for_series/' + id + '/')
       .success(function (data) {
           if (data.success) {
               popup_message('Searching for all Episodes in Series');
-              $('#nzbdrone .noscroll .Series img.search').attr('src', WEBROOT + '/static/images/search.png');
+              $('#sonarr .noscroll .Series img.search').attr('src', WEBROOT + '/static/images/search.png');
           } else {
-              popup_message('Unable to search NZBDrone');
-              $('#nzbdrone .noscroll .Series img.search').attr('src', WEBROOT + '/static/images/search.png');
+              popup_message('Unable to search Sonarr');
+              $('#sonarr .noscroll .Series img.search').attr('src', WEBROOT + '/static/images/search.png');
           }
       });
   });
   
-  /***** End NZBDrone ****/
+  /***** End Sonarr ****/
 
   /*** SICKBEARD ***/
 
