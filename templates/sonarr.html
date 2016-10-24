@@ -21,7 +21,7 @@
 		{% if images %}
             {% for item in imagelist %}
 					<h2><a href="http://thetvdb.com/?tab=series&id={{images[item][2]}}" target="_blank" title="{{ item }} on TVDB">{{item}}</a><img class="search" src="{{ url_for('static', filename='images/search.png') }}" id="{{images[item][0]}}" title="Search for all episodes in series"/></h2>
-					<a class="image_links" href=# id={{images[item][1]}} ><img  class="banners" src="#" id={{images[item][0]}} title="{{item}}" /></a>
+					<a class="image_links" href=# id={{images[item][1]}} target="_blank" ><img  class="banners" src="#" id={{images[item][0]}} title="{{item}}" /></a>
                     <script>
             
 						var port = "{{port}}";
