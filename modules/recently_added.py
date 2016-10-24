@@ -283,7 +283,7 @@ def get_recently_added_albums(xbmc, album_offset=0, mobile=False):
 
             using_db = True
         except:
-            recently_added_movies = []
+            recently_added_albums = []
             logger.log('Failed to get recently added albums from database', 'ERROR')
 
     if not mobile and recently_added_albums:
