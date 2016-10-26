@@ -252,14 +252,19 @@ def add_series(tvdbid, title, qualityprofile, seriestype, path, titleslug):
         You also can't have double quotes which is why we build another dict to remove them from the json
         and lastly, we have to roll it all into a list'''
         for increment in xrange (var, 0, -1):
-            try:
-                s = {'seasonNumber': var, 'monitored': True}
-                seasons.append(s)
-                var -= 1
-            except:
-                break
-                
-        payload = {"title": title, "seasons": seasons, "rootFolderPath": path, "seasonFolder": seasonFolder, "monitored": monitored, "tvdbId": tvdbId, "seriestype": seriestype, "titleSlug": titleslug, "qualityProfileId": qualityprofile}
+            if __name__ == '__main__':
+                try:
+                    s = {'seasonNumber': var, 'monitored': True}
+                    seasons.append(s)
+                    var -= 1
+                except:
+                    break
+    # the following 2 lines are added to compensate for Sonarr incorrectly looking for a images entry in the add show post
+    # remove the 2 lines below when Sonarr is working correclty and replace with the following line
+        #    payload = {"title": title, "seasons": seasons, "rootFolderPath": path, "seasonFolder": seasonFolder, "monitored": monitored, "tvdbId": tvdbId, "seriestype": seriestype, "titleSlug": titleslug, "qualityProfileId": qualityprofile}
+        images = [];
+        payload = {"title": title, "seasons": seasons, "rootFolderPath": path, "seasonFolder": seasonFolder, "monitored": monitored, "tvdbId": tvdbId, "seriestype": seriestype, "titleSlug": titleslug, "qualityProfileId": qualityprofile, "images": images}
+    #--------------------------------------------------------------------
         params = '/api/Series/'
         titletemp = payload['titleSlug']
         sonarr = sonarr_api(params=params)
