@@ -357,6 +357,12 @@ def calendar():
         episodetitle = increment['title']
         airdateutc = increment['airDateUtc']
         airdate = datetime.datetime.strptime( airdateutc, "%Y-%m-%dT%H:%M:%SZ" )
+
+        # convert UTC calendar time to local airdate
+        localdelta = datetime.datetime.now() - datetime.datetime.utcnow()
+        localairdate = datetime.datetime(year=airdate.year, month=airdate.month, day=airdate.day,
+                       hour=airdate.hour, minute=airdate.minute, second=airdate.second) + localdelta
+
         airdatestr = airdate.strftime("%m/%d/%Y %H:%M:%S UTC")
         season = increment['seasonNumber']
         episode = increment['episodeNumber']
@@ -373,16 +379,16 @@ def calendar():
     
         episodeid = increment['id']
         title = increment['series']['title']
-        if airdate < datetime.datetime.utcnow():
+        if localairdate < datetime.datetime.now():
             if str(increment['hasFile']) == 'False':
                 missed.update({banner:[episodetitle, airdatestr, season, episode, overview, title, banner, episodeid, episodetvdbid]})
-        elif  datetime.datetime.utcnow().date() == airdate.date():
-            if datetime.datetime.utcnow() < airdate:
+        elif  datetime.datetime.now().date() == localairdate.date():
+            if datetime.datetime.now() < localairdate:
                 today.update({banner:[episodetitle, airdatestr, season, episode, overview, title, banner, episodeid, episodetvdbid]})
-        elif datetime.datetime.utcnow() < airdate:
-            if airdate.date() == (datetime.datetime.utcnow().date() + datetime.timedelta(days=1)):
+        elif datetime.datetime.now() < localairdate:
+            if localairdate.date() == (datetime.datetime.now().date() + datetime.timedelta(days=1)):
                 tomorrow.update({banner:[episodetitle, airdatestr, season, episode, overview, title, banner, episodeid, episodetvdbid]})
-            elif airdate.date() > (datetime.datetime.utcnow().date() + datetime.timedelta(days=1)):
+            elif localairdate.date() > (datetime.datetime.now().date() + datetime.timedelta(days=1)):
                 later.update({banner:[episodetitle, airdatestr, season, episode, overview, title, banner, episodeid, episodetvdbid]})
 
     tomorrowlist = sorted(tomorrow, key = lambda k: (datetime.datetime.strptime(tomorrow[k][1], "%m/%d/%Y %H:%M:%S UTC")) )
