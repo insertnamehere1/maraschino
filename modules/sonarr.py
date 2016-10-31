@@ -298,9 +298,31 @@ def add_series(tvdbid, title, qualityprofile, seriestype, path, titleslug):
 @app.route('/xhr/sonarr/get_history/')
 def get_history():
     params = '/api/history?pageSize=25&page=1&sortKey=date&sortDir=desc'
-    history = sonarr_api(params=params)
+    historyorig = sonarr_api(params=params)
     properties = []
-    for overview in history['records']:
+    history = []
+
+    # remove any duplicate records.
+    for data in historyorig['records']:
+        found = False
+        try:
+            if history:
+                for item in history:
+                    # do we have a record with the same ID in the list?
+                    if item['downloadId'] == data['downloadId']:
+                        found = True
+                        # if the new record is a download complete then replace the previous record
+                        if data['eventType'] == 'downloadFolderImported':
+                            history.remove(item)
+                            history.append(data)
+                if found == False:
+                    history.append(data)
+            else:
+                history.append(data)
+        except:
+            pass
+
+    for overview in history:
         try:
             temp = []
             eventtypes = False
@@ -309,6 +331,7 @@ def get_history():
             episodetitle = overview['episode']['title']
             episode = overview['episode']['episodeNumber']
             season = overview['episode']['seasonNumber']
+            episodeoverview = overview['episode']['overview']
             try:
                 path = overview['data']['importedPath']
                 eventtypes = True
@@ -321,10 +344,15 @@ def get_history():
             temp.append(episodetitle)
             temp.append(episode)
             temp.append(season)
-            temp.append(path)
+            # if we are still downloading then we will not have a path
+            try:
+                temp.append(path)
+            except:
+                temp.append('Not Imported Yet')
             temp.append(date)
             temp.append(seriesid)
             temp.append(eventtypes)
+            temp.append(episodeoverview)
             properties.append(temp)
         except Exception as e:
             log_exception(e)

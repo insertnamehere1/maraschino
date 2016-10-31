@@ -14,20 +14,21 @@
     {% for item in properties %}
     <ul id="{{item[1]}}{{item[4]}}{{item[3]}}{{item[5]}}" class="{{item[5]}}">
       <li>
-	  {% if item[8] == True %}
-        <span class="status" title="Downloaded on {{ item[6] }}">Downloaded</span>
-	  {% else %}
-		<span class="status" title="Snatched on {{ item[6] }}">Snatched</span>
-	  {% endif %}
-        <span class="name" title="Path: {{ item[5] }}">{{item[1]}} S{{item[4]}}E{{item[3]}}</span>
-        <img class="historybanner" id="{{ item[7] }}" src="{{ item[7] }}" />
-        <span class="extra-info">
-        </span>
+          <span class="historybanner">{{item[9]}}</span>
+          <span class="title">{{item[2]}}</span>
+          <img class="historybanner" id="{{ item[7] }}" src="{{ item[7] }}" />
+          {% if item[8] == True %}
+            <span class="downloaded" title="Downloaded on {{ item[6] }}">Completed</span>
+	      {% else %}
+		    <span class="snatched" title="Started {{ item[6] }}">Downloading</span>
+	      {% endif %}
+          <span class="name" title="Path: {{ item[5] }}">Season {{item[4]}} Episode {{item[3]}}</span>
+          <span class="extra-info">
+          </span>
       </li>
     </ul>
     {% endfor %}
   </div>
 </div>
-
 
 {% endblock %}
