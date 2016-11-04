@@ -309,7 +309,7 @@ def get_history():
             if history:
                 for item in history:
                     # do we have a record with the same ID in the list?
-                    if item['downloadId'] == data['downloadId']:
+                    if item['episode'] == data['episode']:
                         found = True
                         # if the new record is a download complete then replace the previous record
                         if data['eventType'] == 'downloadFolderImported':
@@ -331,7 +331,10 @@ def get_history():
             episodetitle = overview['episode']['title']
             episode = overview['episode']['episodeNumber']
             season = overview['episode']['seasonNumber']
-            episodeoverview = overview['episode']['overview']
+            try:
+                episodeoverview = overview['episode']['overview']
+            except:
+                episodeoverview = "No Details Available"
             try:
                 path = overview['data']['importedPath']
                 eventtypes = True
