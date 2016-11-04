@@ -14,9 +14,13 @@
     {% for item in properties %}
     <ul id="{{item[1]}}{{item[4]}}{{item[3]}}{{item[5]}}" class="{{item[5]}}">
       <li>
-          <span class="historybanner">{{item[9]}}</span>
-          <span class="title">{{item[2]}}</span>
+
           <img class="historybanner" id="{{ item[7] }}" src="{{ item[7] }}" />
+          <div class="peelcorner"></div>
+          <div class="infobanner">
+              <div class="infotitle">{{item[2]}}</div>
+              <div class="info">{{item[9]}}</div>
+          </div>
           {% if item[8] == True %}
             <span class="downloaded" title="Downloaded on {{ item[6] }}">Completed</span>
 	      {% else %}

@@ -86,7 +86,7 @@
     }
 
     #getshows {
-        max-height: 264px;
+        max-height: 290px;
         overflow: auto;
 
 
@@ -576,9 +576,9 @@
 
         ul {
             width: 100%;
-            height: 110px;
+            height: 90px;
             overflow: hidden;
-            margin-top: 8px;
+            margin-top: 5px;
             .border-radius(4px);
 
             &.Snatched {
@@ -610,53 +610,98 @@
                 }
 
                 img {
-                    left: 5px;
-                    position: absolute;
-                    top: 4px;
-                    width: 97.5%;
+                    display: block;
+                    width: 100%;
                     height: 65%;
                     .border-radius(4px);
                     cursor: pointer;
                 }
 
-                .historybanner {
-                    left: 5px;
+                .peelcorner:before, .peelcorner:after {
                     position: absolute;
-                    top: 4px;
-                    width: 97.5%;
-                    height: 65%;
-                    overflow: scroll;
-                    font-size: 10px;
-                    line-height: 100%;
-                    text-align: justify;
-                    font-stretch: expanded;
+                    width: 20px;
+                    height: 20px;
+                    top: 0px;
+                    right: 0px;
+                    content: "";
                 }
 
-                .description {
+                .peelcorner:before {
+                    width: 0px;
+                    height: 0px;
+                    border-style: solid;
+                    border-color: transparent #222 transparent transparent;
+                    border-width: 0 15px 15px 0;
+                }
+
+                .peelcorner:after {
+                    width: 0px;
+                    height: 0px;
+                    border-style: solid;
+                    border-color: transparent transparent transparent #c0c0c0;
+                    border-width: 15px 0 0 15px;
+                    box-shadow: -1px 1px 5px #212835;
+                }
+
+                .peelcorner {
+                    border-radius: 4px;
                     position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    top: 5px;
+                    right: 5px;
+                    visibility: visible;
+                    &:active + .infobanner {
+                        visibility: visible;
+                    }
+                    &:active {
+                        opacity:0;
+                        filter:alpha(opacity=0);
+                    }
+                }
+
+                .infobanner {
+                    position: relative;
                     width: 100%;
-                    height: 35px;
-                    top: 75px;
-                }
-
-                .title {
-                    left: 5px;
-                    position: absolute;
-                    top: 90px;
-                    font-size: 85%;
-                    overflow: hidden;
-                    white-space: nowrap;
+                    height: 65%;
+                    bottom: 65px;
                     cursor: pointer;
-
-                    &:hover ~ img {
-                        visibility: hidden;
+                    border-radius: 4px;
+                    visibility: hidden;
+                    background: black;
+                    &:hover {
+                        visibility: visible;
+                    }
+                    .infotitle {
+                        position: relative;
+                        width: 85%;
+                        padding-top: 2px;
+                        padding-right: 10%;
+                        margin-left: 5px;
+                        font-size: 1.2em;
+                        background: black;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+                    .info {
+                        position: relative;
+                        left: 6px;
+                        padding-right: 2%;
+                        margin-right: 4%;
+                        height: 63%;
+                        background: black;
+                        overflow: auto;
+                        font-size: 10px;
+                        line-height: 100%;
+                        text-align: justify;
+                        font-stretch: expanded;
                     }
                 }
 
                 .name {
-                    left: 5px;
+                    left: 15px;
                     position: absolute;
-                    top: 75px;
+                    top: 71px;
                     font-size: 90%;
                     cursor: pointer;
                 }
@@ -664,7 +709,7 @@
                 .downloaded {
                     left: 150px;
                     position: absolute;
-                    top: 75px;
+                    top: 71px;
                     color: lightgreen;
                     font-size: 90%;
                     cursor: pointer;
@@ -672,7 +717,7 @@
                 .snatched {
                     left: 150px;
                     position: absolute;
-                    top: 75px;
+                    top: 71px;
                     color: yellow;
                     font-size: 90%;
                     cursor: pointer;
